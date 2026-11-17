@@ -24,6 +24,13 @@ jobs:
     name: Test (Node ${{ matrix.node-version }} on ${{ matrix.os }})
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
         with:
           node-version: ${{ matrix.node-version }}
@@ -48,6 +55,13 @@ jobs:
     name: Cypress
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - uses: ./.github/actions/setup-cypress
       - run: pnpm test:cypress
@@ -57,6 +71,13 @@ jobs:
     name: Happo Custom
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:custom
 
@@ -65,6 +86,13 @@ jobs:
     name: Happo Custom (skipped examples)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:custom:skipped
 
@@ -73,6 +101,13 @@ jobs:
     name: Happo Pages
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:pages
 
@@ -81,6 +116,13 @@ jobs:
     name: Storybook v8
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm add -D storybook@8 @storybook/react@8 @storybook/builder-vite@8 @storybook/react-vite@8
       - run: pnpm test:storybook:v8
@@ -98,6 +140,13 @@ jobs:
     name: Storybook v${{ matrix.version }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - if: matrix.dependencies != ''
         run: pnpm add -D ${{ matrix.dependencies }}
@@ -113,6 +162,13 @@ jobs:
         with:
           # getSkip.ts diffs against the base commit to avoid skipping changed story files
           fetch-depth: 0
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:storybook:skipped
 
@@ -121,6 +177,13 @@ jobs:
     name: Storybook (only examples)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:storybook:only
 
@@ -129,6 +192,13 @@ jobs:
     name: Storybook (no register import)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm test:storybook:no-register
 
@@ -139,6 +209,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - uses: ./.github/actions/setup-playwright
       - run: pnpm test:playwright
@@ -150,6 +227,13 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - uses: ./.github/actions/setup-playwright
       - run: pnpm test:playwright:nonce
@@ -161,6 +245,13 @@ jobs:
     name: TypeScript
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm tsc
 
@@ -169,5 +260,12 @@ jobs:
     name: ESLint
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - uses: ./.github/actions/setup-env
       - run: pnpm lint
